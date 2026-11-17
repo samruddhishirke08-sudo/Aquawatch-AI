@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaSense AI | Settings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🌱</span>
+            <h2>AquaSense <span>AI</span></h2>
+        </div>
+        <p class="menu-label">MAIN MENU</p>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}">▦ Dashboard</a>
+            <a href="{{ url_for('monitoring') }}">◉ Water Monitoring</a>
+            <a href="{{ url_for('ai_insights') }}">✧ AI Insights</a>
+            <a href="{{ url_for('irrigation') }}">♧ Smart Irrigation</a>
+            <a href="{{ url_for('security_reports') }}">⚑ Security & Reports</a>
+            <a href="{{ url_for('settings') }}" class="active">⚙️ Settings</a>
+        </nav>
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('login') }}">↪️ Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">SYSTEM CONFIGURATION</p>
+                <h1>Settings</h1>
+            </div>
+            <span class="status-pill">● Demo Mode</span>
+        </header>
+
+        <section class="welcome-banner">
+            <div>
+                <p class="eyebrow">AQUASENSE PREFERENCES</p>
+                <h2>Configure your farm system.</h2>
+                <p>Manage your farm details and demonstration settings.</p>
+            </div>
+            <div class="banner-icon">⚙️</div>
+        </section>
+
+        <section class="content-card">
+            <div class="card-heading">
+                <div>
+                    <h3>Farm Information</h3>
+                    <p>Basic details for your agricultural setup</p>
+                </div>
+            </div>
+
+            <div class="settings-fields">
+                <div>
+                    <label for="farmName">Farm Name</label>
+                    <input type="text" id="farmName" value="My Smart Farm">
+                </div>
+                <div>
+                    <label for="tankCapacity">Tank Capacity (Litres)</label>
+                    <input type="number" id="tankCapacity" value="1000" min="1">
+                </div>
+                <div>
+                    <label for="zoneCount">Number of Farm Zones</label>
+                    <input type="number" id="zoneCount" value="3" min="1">
+                </div>
+                <div>
+                    <label for="waterThreshold">Low Water Alert (%)</label>
+                    <input type="number" id="waterThreshold" value="20" min="1" max="100">
+                </div>
+            </div>
+
+            <button type="button" class="login-button" id="saveSettings">Save Settings</button>
+            <p id="settingsMessage" class="small-note"></p>
+        </section>
+
+        <section class="content-card">
+            <div class="card-heading">
+                <div>
+                    <h3>System Preferences</h3>
+                    <p>Prototype configuration</p>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <span>Application Name</span>
+                <strong>AquaSense AI</strong>
+            </div>
+            <div class="info-row">
+                <span>Application Type</span>
+                <strong>Software Prototype</strong>
+            </div>
+            <div class="info-row">
+                <span>Monitoring Source</span>
+                <strong>Simulated Readings</strong>
+            </div>
+            <div class="info-row">
+                <span>Physical Hardware</span>
+                <strong>Not Connected</strong>
+            </div>
+        </section>
+
+        <section class="content-card">
+            <div class="card-heading">
+                <div>
+                    <h3>About AquaSense AI</h3>
+                    <p>Project information</p>
+                </div>
+            </div>
+            <p>AquaSense AI is an agricultural water management software prototype designed to demonstrate water monitoring, irrigation scheduling, farm zone management, alerts and data-based recommendations.</p>
+            <p class="small-note">Developed as an academic project in Artificial Intelligence and Data Science.</p>
+        </section>
+
+        <footer class="page-footer">AquaSense AI · Agricultural Water Management · Software Prototype</footer>
+    </main>
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

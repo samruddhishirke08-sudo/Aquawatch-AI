@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security & Reports | AquaSense AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            margin: 0;
+            background: #f5f7f5;
+            color: #34443e;
+            font-family: Arial, sans-serif;
+        }
+
+        .app-layout { display: flex; min-height: 100vh; }
+
+        .sidebar {
+            width: 190px;
+            min-width: 190px;
+            background: linear-gradient(180deg, #234d43, #183c35);
+            padding: 20px 12px;
+            box-sizing: border-box;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .sidebar a {
+            color: #e4eee8;
+            text-decoration: none;
+            padding: 12px 10px;
+            border-radius: 10px;
+            font-size: 13px;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background: #579b7a;
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 22px;
+        }
+
+        .hero {
+            background: linear-gradient(110deg, #5b9c70, #73c58a);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .hero small {
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .hero h1 { margin: 12px 0 8px; }
+        .hero p { margin: 0; }
+
+        .section-title { margin: 25px 0 5px; }
+
+        .section-subtitle {
+            color: #89958f;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 3px 14px rgba(30, 60, 45, 0.05);
+            margin-bottom: 18px;
+        }
+
+        .card-label { color: #89958f; font-size: 13px; }
+
+        .card-value {
+            font-size: 25px;
+            font-weight: bold;
+            color: #659b80;
+            margin-top: 12px;
+        }
+
+        .card-note {
+            color: #929c96;
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .alert-box {
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+            border-left: 5px solid;
+        }
+
+        .alert-box h3 { margin: 0 0 8px; }
+        .alert-box p { margin: 0; font-size: 14px; }
+
+        .red { background: #fee2e2; color: #991b1b; }
+        .green { background: #dcfce7; color: #166534; }
+        .blue { background: #dbeafe; color: #1e40af; }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .rule-card {
+            padding: 18px;
+            border-radius: 13px;
+            border: 1px solid transparent;
+        }
+
+        .rule-card h3 {
+            margin: 8px 0;
+            font-size: 22px;
+        }
+
+        .rule-card p {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .rule-card .rule-heading {
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .rule-danger {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #fecaca;
+        }
+
+        .rule-critical {
+            background: #fff0f0;
+            color: #b91c1c;
+            border-color: #fecaca;
+        }
+
+        .rule-low {
+            background: #fff0e5;
+            color: #9a3412;
+            border-color: #fed7aa;
+        }
+
+        .rule-normal {
+            background: #dcfce7;
+            color: #166534;
+            border-color: #bbf7d0;
+        }
+
+        .rule-full {
+            background: #dbeafe;
+            color: #1e40af;
+            border-color: #bfdbfe;
+        }
+
+        .notification-item {
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 10px;
+            background: #f7f9f7;
+            border-left: 4px solid #dc2626;
+        }
+
+        .notification-item p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .notification-item small {
+            color: #89958f;
+        }
+
+        .empty-notifications {
+            color: #89958f;
+            font-size: 14px;
+            padding: 12px 0;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .report-table th, .report-table td {
+            text-align: left;
+            padding: 14px 10px;
+            border-bottom: 1px solid #edf0ed;
+            font-size: 14px;
+        }
+
+        .report-table th {
+            color: #52745f;
+            background: #f1f7f2;
+        }
+
+        .report-table td:last-child { font-weight: 600; }
+
+        .action-btn {
+            background: #579b75;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 8px 5px 0 0;
+        }
+
+        .action-btn:hover { background: #397b59; }
+
+        .secondary-btn {
+            background: #e8f1eb;
+            color: #315b43;
+        }
+
+        .secondary-btn:hover { background: #d5e7da; }
+
+        @media (max-width: 750px) {
+            .sidebar { width: 145px; min-width: 145px; }
+            .main-content { padding: 12px; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .rules-grid { grid-template-columns: 1fr; }
+            .report-table th, .report-table td {
+                padding: 10px 6px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <nav>
+            <a href="/dashboard">▦ Dashboard</a>
+            <a href="/monitoring">◉ Water Monitoring</a>
+            <a href="/ai-insights">✧ AI Insights</a>
+            <a href="/irrigation">♧ Smart Irrigation</a>
+            <a href="/security-reports" class="active">⚑ Security & Reports</a>
+            <a href="/settings">⚙️ Settings</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="hero">
+            <small>WATER RESOURCE CENTRE</small>
+            <h1>Security & Reports</h1>
+            <p>Monitor farm water security, receive alerts and view reports.</p>
+        </div>
+
+        <h2 class="section-title">Security Overview</h2>
+        <p class="section-subtitle">Current tank readings and system status.</p>
+
+        <div class="stats-grid">
+            <div class="content-card">
+                <div class="card-label">Current Water Level</div>
+                <div class="card-value" id="waterPercent">72%</div>
+                <div class="card-note">Simulated water reading</div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-label">Available Water</div>
+                <div class="card-value" id="waterLitres">720 L</div>
+                <div class="card-note">Out of 1,000 litres</div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-label">Security Status</div>
+                <div class="card-value" id="securityStatus">Normal</div>
+                <div class="card-note">Based on water level</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Current Security Alert</h2>
+        <p class="section-subtitle">Automatic warning based on current water readings.</p>
+
+        <div class="content-card">
+            <div class="alert-box green" id="alertBox">
+                <h3 id="alertTitle">WATER LEVEL NORMAL</h3>
+                <p id="alertMessage">The tank has sufficient water.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Security Notifications</h2>
+        <p class="section-subtitle">Recent water-level alerts and notification history.</p>
+
+        <div class="content-card">
+            <p class="card-note">Allow browser notifications to receive pop-up alerts while this website is open.</p>
+            <button class="action-btn" onclick="enableNotifications()">
+                Enable Browser Notifications
+            </button>
+            <button class="action-btn secondary-btn" onclick="clearNotifications()">
+                Clear History
+            </button>
+            <div id="notificationList">
+                <p class="empty-notifications">No new notifications yet.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Security Rules</h2>
+        <p class="section-subtitle">Colour-coded water-level conditions.</p>
+
+        <div class="rules-grid">
+            <div class="rule-card rule-danger">
+                <div class="rule-heading">● DANGER</div>
+                <h3>0%</h3>
+                <p>Tank empty. No water available.</p>
+            </div>
+
+            <div class="rule-card rule-critical">
+                <div class="rule-heading">▲ CRITICAL</div>
+                <h3>1–5%</h3>
+                <p>Immediate attention required.</p>
+            </div>
+
+            <div class="rule-card rule-low">
+                <div class="rule-heading">▼ LOW WATER</div>
+                <h3>6–19%</h3>
+                <p>Water is running low. Refill recommended.</p>
+            </div>
+
+            <div class="rule-card rule-normal">
+                <div class="rule-heading">✓ NORMAL</div>
+                <h3>20–99%</h3>
+                <p>Sufficient water available.</p>
+            </div>
+
+            <div class="rule-card rule-full">
+                <div class="rule-heading">● TANK FULL</div>
+                <h3>100%</h3>
+                <p>Tank has reached full capacity.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">Farm Water Report</h2>
+        <p class="section-subtitle">View the current report here or download a copy.</p>
+
+        <div class="content-card">
+            <h3>AquaSense AI - Water Report</h3>
+            <p class="card-note" id="reportDate">Report generated for current session</p>
+
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Report Details</th>
+                        <th>Current Reading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Water Level</td><td id="reportLevel">72%</td></tr>
+                    <tr><td>Available Water</td><td id="reportLitres">720 L</td></tr>
+                    <tr><td>Tank Capacity</td><td>1,000 L</td></tr>
+                    <tr><td>Security Status</td><td id="reportStatus">Normal</td></tr>
+                    <tr><td>Current Alert</td><td id="reportAlert">Water level normal</td></tr>
+                    <tr><td>System Type</td><td>Software Simulation</td></tr>
+                </tbody>
+            </table>
+
+            <button class="action-btn" onclick="downloadReport()">
+                Download Report (CSV)
+            </button>
+        </div>
+
+    </main>
+</div>
+
+<script>
+let currentLevel = 72;
+let currentStatus = "Normal";
+let currentAlert = "Water level normal";
+let previousCategory = null;
+let notificationHistory = [];
+
+function getCategory(level) {
+    if (level === 0) return "danger";
+    if (level <= 5) return "critical";
+    if (level < 20) return "low";
+    if (level === 100) return "full";
+    return "normal";
+}
+
+function getAlertDetails(category) {
+    const alerts = {
+        danger: {
+            status: "Danger",
+            alert: "Empty tank alert",
+            title: "EMPTY TANK ALERT",
+            message: "The tank is empty. No water is available."
+        },
+        critical: {
+            status: "Critical",
+            alert: "Critical water level",
+            title: "CRITICAL WATER LEVEL",
+            message: "Water is critically low. Immediate attention is required."
+        },
+        low: {
+            status: "Low",
+            alert: "Low water level warning",
+            title: "LOW WATER LEVEL WARNING",
+            message: "Water is running low. Refill is recommended."
+        },
+        normal: {
+            status: "Normal",
+            alert: "Water level normal",
+            title: "WATER LEVEL NORMAL",
+            message: "The tank has sufficient water."
+        },
+        full: {
+            status: "Tank Full",
+            alert: "Tank full notification",
+            title: "TANK FULL NOTIFICATION",
+            message: "The tank has reached full capacity."
+        }
+    };
+
+    return alerts[category];
+}
+
+function addNotification(category, level) {
+    const details = getAlertDetails(category);
+    const time = new Date().toLocaleString();
+
+    notificationHistory.unshift({
+        title: details.title,
+        message: details.message,
+        time: time,
+        category: category
+    });
+
+    if (notificationHistory.length > 10) {
+        notificationHistory.pop();
+    }
+
+    renderNotifications();
+
+    if ("Notification" in window &&
+        Notification.permission === "granted") {
+        new Notification("AquaSense AI - " + details.status, {
+            body: details.message + " Current level: " + level + "%"
+        });
+    }
+}
+
+function renderNotifications() {
+    const list = document.getElementById("notificationList");
+
+    if (notificationHistory.length === 0) {
+        list.innerHTML = '<p class="empty-notifications">No new notifications yet.</p>';
+        return;
+    }
+
+    list.innerHTML = notificationHistory.map(item => `
+        <div class="notification-item">
+            <strong>${item.title}</strong>
+            <p>${item.message}</p>
+            <small>${item.time}</small>
+        </div>
+    `).join("");
+}
+
+function enableNotifications() {
+    if (!("Notification" in window)) {
+        alert("Your browser does not support notifications.");
+        return;
+    }
+
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            alert("Browser notifications enabled!");
+            new Notification("AquaSense AI", {
+                body: "Water security notifications are now enabled."
+            });
+        } else {
+            alert("Notifications were not allowed. Please check your browser settings.");
+        }
+    });
+}
+
+function clearNotifications() {
+    notificationHistory = [];
+    renderNotifications();
+}
+
+function updateSecurity(shouldNotify) {
+    const savedLevel = localStorage.getItem("aquaWaterLevel");
+    let level = savedLevel === null ? 72 : Number(savedLevel);
+
+    if (isNaN(level)) level = 72;
+    level = Math.max(0, Math.min(100, level));
+
+    currentLevel = level;
+
+    const litres = Math.round(level * 10);
+    const category = getCategory(level);
+    const details = getAlertDetails(category);
+
+    currentStatus = details.status;
+    currentAlert = details.alert;
+
+    document.getElementById("waterPercent").textContent = level + "%";
+    document.getElementById("waterLitres").textContent = litres + " L";
+    document.getElementById("securityStatus").textContent = currentStatus;
+
+    document.getElementById("alertTitle").textContent = details.title;
+    document.getElementById("alertMessage").textContent = details.message;
+
+    const box = document.getElementById("alertBox");
+    box.className = "alert-box";
+
+    if (category === "danger" || category === "critical" || category === "low") {
+        box.classList.add("red");
+        box.style.borderColor = "#dc2626";
+    } else if (category === "full") {
+        box.classList.add("blue");
+        box.style.borderColor = "#2563eb";
+    } else {
+        box.classList.add("green");
+        box.style.borderColor = "#16a34a";
+    }
+
+    document.getElementById("reportLevel").textContent = level + "%";
+    document.getElementById("reportLitres").textContent = litres + " L";
+    document.getElementById("reportStatus").textContent = currentStatus;
+    document.getElementById("reportAlert").textContent = currentAlert;
+    document.getElementById("reportDate").textContent =
+        "Report generated: " + new Date().toLocaleString();
+
+    if (previousCategory !== null &&
+        category !== previousCategory &&
+        shouldNotify) {
+        addNotification(category, level);
+    }
+
+    previousCategory = category;
+}
+
+function downloadReport() {
+    const litres = Math.round(currentLevel * 10);
+
+    const rows = [
+        ["AquaSense AI - Farm Water Report", ""],
+        ["Generated", new Date().toLocaleString()],
+        ["Water Level", currentLevel + "%"],
+        ["Available Water", litres + " L"],
+        ["Tank Capacity", "1000 L"],
+        ["Security Status", currentStatus],
+        ["Current Alert", currentAlert],
+        ["System Type", "Software Simulation"]
+    ];
+
+    const csv = rows.map(row =>
+        row.map(value => '"' + String(value).replace(/"/g, '""') + '"').join(",")
+    ).join("\n");
+
+    const file = new Blob([csv], { type: "text/csv" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(file);
+
+    link.href = url;
+    link.download = "AquaSense_Farm_Water_Report.csv";
+    link.click();
+
+    URL.revokeObjectURL(url);
+}
+
+updateSecurity(false);
+
+window.addEventListener("storage", function(event) {
+    if (event.key === "aquaWaterLevel") {
+        updateSecurity(true);
+    }
+});
+</script>
+</body>
+</html>

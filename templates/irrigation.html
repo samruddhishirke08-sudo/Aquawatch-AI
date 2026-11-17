@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaSense AI | Smart Irrigation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🌱</span>
+            <h2>AquaSense <span>AI</span></h2>
+        </div>
+        <p class="menu-label">MAIN MENU</p>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}">▦ Dashboard</a>
+            <a href="{{ url_for('monitoring') }}">◉ Water Monitoring</a>
+            <a href="{{ url_for('ai_insights') }}">✧ AI Insights</a>
+            <a href="{{ url_for('irrigation') }}" class="active">♧ Smart Irrigation</a>
+            <a href="{{ url_for('security_reports') }}">⚑ Security & Reports</a>
+            <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+        </nav>
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('login') }}">↪️ Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">AUTOMATED FARM MANAGEMENT</p>
+                <h1>Smart Irrigation</h1>
+            </div>
+            <span class="status-pill">● Simulation Mode</span>
+        </header>
+
+        <section class="welcome-banner">
+            <div>
+                <p class="eyebrow">SMART WATER CONTROL</p>
+                <h2>Give every zone the water it needs.</h2>
+                <p>Control simulated irrigation and plan watering schedules.</p>
+            </div>
+            <div class="banner-icon">🚿</div>
+        </section>
+
+        <section class="section-heading">
+            <div>
+                <h2>Pump Control</h2>
+                <p>Demonstration controls. No physical pump is connected.</p>
+            </div>
+        </section>
+
+        <section class="dashboard-grid">
+            <article class="content-card pump-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Main Water Pump</h3>
+                        <p>Simulated pump operation</p>
+                    </div>
+                    <span class="stat-icon">⚡</span>
+                </div>
+
+                <div class="pump-status-display">
+                    <div class="pump-circle">⚙️</div>
+                    <h2 id="pumpStatus">OFF</h2>
+                    <p id="pumpMessage">Pump is currently stopped.</p>
+                </div>
+
+                <div class="pump-buttons">
+                    <button type="button" class="login-button" id="pumpOn">Turn Pump ON</button>
+                    <button type="button" class="secondary-button" id="pumpOff">Turn Pump OFF</button>
+                </div>
+                <p class="small-note" id="pumpNotice">Simulation only. This does not operate real machinery.</p>
+            </article>
+
+            <article class="content-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Water Availability</h3>
+                        <p>Current tank reading</p>
+                    </div>
+                </div>
+                <div class="availability-number">720 <span>L</span></div>
+                <div class="water-progress">
+                    <div class="water-progress-fill" style="width:72%"></div>
+                </div>
+                <div class="progress-labels">
+                    <strong>72% available</strong>
+                    <span>1,000 L capacity</span>
+                </div>
+                <div class="insight-note">The simulated pump should not be started when the tank is empty.</div>
+            </article>
+        </section>
+
+        <section class="content-card">
+            <div class="card-heading">
+                <div>
+                    <h3>Farm Zone Management</h3>
+                    <p>Select the agricultural area for irrigation.</p>
+                </div>
+            </div>
+
+            <div class="zone-row">
+                <span class="zone-icon">🥬</span>
+                <div class="zone-info">
+                    <strong>Zone 1 – Vegetable Farm</strong>
+                    <small>Vegetable crops · Medium water requirement</small>
+                </div>
+                <span class="zone-status">Ready</span>
+            </div>
+
+            <div class="zone-row">
+                <span class="zone-icon">🍎</span>
+                <div class="zone-info">
+                    <strong>Zone 2 – Fruit Garden</strong>
+                    <small>Fruit plants · Moderate water requirement</small>
+                </div>
+                <span class="zone-status">Ready</span>
+            </div>
+
+            <div class="zone-row">
+                <span class="zone-icon">🌾</span>
+                <div class="zone-info">
+                    <strong>Zone 3 – Crop Field</strong>
+                    <small>Field crops · High water requirement</small>
+                </div>
+                <span class="zone-status">Ready</span>
+            </div>
+        </section>
+
+        <section class="content-card schedule-card">
+            <div class="card-heading">
+                <div>
+                    <h3>Schedule Irrigation</h3>
+                    <p>Plan a future watering session.</p>
+                </div>
+                <span class="stat-icon">🕒</span>
+            </div>
+
+            <form id="scheduleForm">
+                <div class="schedule-fields">
+                    <div>
+                        <label for="zoneSelect">Select Farm Zone</label>
+                        <select id="zoneSelect" required>
+                            <option value="">Choose a zone</option>
+                            <option value="Vegetable Farm">Zone 1 – Vegetable Farm</option>
+                            <option value="Fruit Garden">Zone 2 – Fruit Garden</option>
+                            <option value="Crop Field">Zone 3 – Crop Field</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="scheduleDate">Irrigation Date</label>
+                        <input type="date" id="scheduleDate" required>
+                    </div>
+
+                    <div>
+                        <label for="scheduleTime">Start Time</label>
+                        <input type="time" id="scheduleTime" required>
+                    </div>
+
+                    <div>
+                        <label for="duration">Duration (minutes)</label>
+                        <input type="number" id="duration" min="1" max="240" placeholder="Example: 20" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-button">Save Irrigation Schedule →</button>
+                <p id="scheduleMessage" class="small-note"></p>
+            </form>
+        </section>
+
+        <section class="content-card recent-alerts">
+            <div class="card-heading">
+                <div>
+                    <h3>Scheduled Activities</h3>
+                    <p>Your planned irrigation sessions</p>
+                </div>
+            </div>
+            <div id="scheduleList">
+                <p class="small-note">No irrigation schedules added yet.</p>
+            </div>
+        </section>
+
+        <footer class="page-footer">AquaSense AI · Agricultural Water Management · Software Prototype</footer>
+    </main>
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

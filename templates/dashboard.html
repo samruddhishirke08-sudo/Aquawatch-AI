@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaSense AI | Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🌱</span>
+            <h2>AquaSense <span>AI</span></h2>
+        </div>
+
+        <p class="menu-label">MAIN MENU</p>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}" class="active">▦ Dashboard</a>
+            <a href="{{ url_for('monitoring') }}">◉ Water Monitoring</a>
+            <a href="{{ url_for('ai_insights') }}">✧ AI Insights</a>
+            <a href="{{ url_for('irrigation') }}">♧ Smart Irrigation</a>
+            <a href="{{ url_for('security_reports') }}">⚑ Security & Reports</a>
+            <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('login') }}">↪️ Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">FARM MANAGEMENT</p>
+                <h1>Dashboard</h1>
+            </div>
+            <div class="user-profile">
+                <span class="avatar">F</span>
+                <div>
+                    <strong>Farmer</strong>
+                    <small>Farm Administrator</small>
+                </div>
+            </div>
+        </header>
+
+        <section class="welcome-banner">
+            <div>
+                <p class="eyebrow">WELCOME TO AQUASENSE AI</p>
+                <h2>Smart water management starts here.</h2>
+                <p>Monitor your farm, manage irrigation and reduce water waste.</p>
+            </div>
+            <div class="banner-icon">🌾</div>
+        </section>
+
+        <section class="section-heading">
+            <div>
+                <h2>Farm Overview</h2>
+                <p>Sample live-style readings for your farm demo.</p>
+            </div>
+            <span class="status-pill">● Demo Mode</span>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>Water Level</span>
+                    <span class="stat-icon">💧</span>
+                </div>
+                <h2 id="dashboardLevel">72%</h2>
+                <p>Tank capacity: 1,000 L</p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>Available Water</span>
+                    <span class="stat-icon">🫧</span>
+                </div>
+                <h2 id="dashboardLitres">720 L</h2>
+                <p>Water currently available</p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>Pump Status</span>
+                    <span class="stat-icon">⚡</span>
+                </div>
+                <h2 id="dashboardPump">OFF</h2>
+                <p>Simulated pump status</p>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>Farm Zones</span>
+                    <span class="stat-icon">🌱</span>
+                </div>
+                <h2>3</h2>
+                <p>Managed irrigation zones</p>
+            </article>
+        </section>
+
+        <section class="dashboard-grid">
+            <article class="content-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Tank Water Status</h3>
+                        <p>Current simulated tank capacity</p>
+                    </div>
+                    <span class="status-pill">Normal</span>
+                </div>
+
+                <div class="water-progress">
+                    <div class="water-progress-fill" style="width:72%"></div>
+                </div>
+                <div class="progress-labels">
+                    <strong>720 Litres</strong>
+                    <span>1,000 Litres</span>
+                </div>
+
+                <div class="tank-details">
+                    <div>
+                        <span class="detail-dot green-dot"></span>
+                        Available water
+                    </div>
+                    <strong>72%</strong>
+                </div>
+                <div class="tank-details">
+                    <div>
+                        <span class="detail-dot grey-dot"></span>
+                        Empty capacity
+                    </div>
+                    <strong>28%</strong>
+                </div>
+            </article>
+
+            <article class="content-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Farm Zones</h3>
+                        <p>Your irrigation areas</p>
+                    </div>
+                </div>
+
+                <div class="zone-row">
+                    <span class="zone-icon">🥬</span>
+                    <div class="zone-info">
+                        <strong>Vegetable Farm</strong>
+                        <small>Zone 1 · Irrigation ready</small>
+                    </div>
+                    <span class="zone-status">Ready</span>
+                </div>
+
+                <div class="zone-row">
+                    <span class="zone-icon">🍎</span>
+                    <div class="zone-info">
+                        <strong>Fruit Garden</strong>
+                        <small>Zone 2 · Irrigation ready</small>
+                    </div>
+                    <span class="zone-status">Ready</span>
+                </div>
+
+                <div class="zone-row">
+                    <span class="zone-icon">🌾</span>
+                    <div class="zone-info">
+                        <strong>Crop Field</strong>
+                        <small>Zone 3 · Irrigation ready</small>
+                    </div>
+                    <span class="zone-status">Ready</span>
+                </div>
+            </article>
+        </section>
+
+        <section class="content-card recent-alerts">
+            <div class="card-heading">
+                <div>
+                    <h3>Recent System Alerts</h3>
+                    <p>Important updates from your farm system</p>
+                </div>
+                <a href="{{ url_for('security_reports') }}">View all →</a>
+            </div>
+
+            <div class="alert-row">
+                <span class="alert-symbol">✓</span>
+                <div>
+                    <strong>System initialized successfully</strong>
+                    <small>Demo monitoring system is ready.</small>
+                </div>
+                <span class="alert-time">Just now</span>
+            </div>
+
+            <div class="alert-row">
+                <span class="alert-symbol">💧</span>
+                <div>
+                    <strong>Water level is normal</strong>
+                    <small>Current tank level is 72%.</small>
+                </div>
+                <span class="alert-time">Demo reading</span>
+            </div>
+        </section>
+
+        <footer class="page-footer">
+            AquaSense AI · Agricultural Water Management · Software Prototype
+        </footer>
+    </main>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

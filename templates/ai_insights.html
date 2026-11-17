@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaSense AI | AI Insights</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🌱</span>
+            <h2>AquaSense <span>AI</span></h2>
+        </div>
+        <p class="menu-label">MAIN MENU</p>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}">▦ Dashboard</a>
+            <a href="{{ url_for('monitoring') }}">◉ Water Monitoring</a>
+            <a href="{{ url_for('ai_insights') }}" class="active">✧ AI Insights</a>
+            <a href="{{ url_for('irrigation') }}">♧ Smart Irrigation</a>
+            <a href="{{ url_for('security_reports') }}">⚑ Security & Reports</a>
+            <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+        </nav>
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('login') }}">↪️ Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">INTELLIGENT FARMING</p>
+                <h1>AI Insights</h1>
+            </div>
+            <span class="status-pill">● Demo Analysis</span>
+        </header>
+
+        <section class="welcome-banner">
+            <div>
+                <p class="eyebrow">SMART WATER ANALYSIS</p>
+                <h2>Make better irrigation decisions.</h2>
+                <p>Understand water usage and plan irrigation more efficiently.</p>
+            </div>
+            <div class="banner-icon">✧</div>
+        </section>
+
+        <section class="section-heading">
+            <div>
+                <h2>Water Intelligence</h2>
+                <p>Insights calculated from sample demonstration readings.</p>
+            </div>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <div class="stat-top"><span>Current Water Level</span><span class="stat-icon">💧</span></div>
+                <h2>72%</h2>
+                <p>720 litres available</p>
+            </article>
+            <article class="stat-card">
+                <div class="stat-top"><span>Estimated Daily Usage</span><span class="stat-icon">📊</span></div>
+                <h2>180 L</h2>
+                <p>Sample consumption</p>
+            </article>
+            <article class="stat-card">
+                <div class="stat-top"><span>Estimated Remaining Time</span><span class="stat-icon">⏱️</span></div>
+                <h2>4 Days</h2>
+                <p>At 180 L per day</p>
+            </article>
+            <article class="stat-card">
+                <div class="stat-top"><span>Water Efficiency</span><span class="stat-icon">🌿</span></div>
+                <h2>Good</h2>
+                <p>Based on sample usage</p>
+            </article>
+        </section>
+
+        <section class="dashboard-grid">
+            <article class="content-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Water Depletion Prediction</h3>
+                        <p>Estimated time until the tank reaches its reserve level</p>
+                    </div>
+                </div>
+                <div class="prediction-number">4 <span>days</span></div>
+                <p class="prediction-description">With 720 litres available and estimated usage of 180 litres per day, the tank could last approximately 4 days if usage remains constant.</p>
+                <div class="insight-note">This is a mathematical estimate using sample data, not a trained machine-learning prediction.</div>
+            </article>
+
+            <article class="content-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Possible Leakage Detection</h3>
+                        <p>Illustrative abnormal-usage analysis</p>
+                    </div>
+                </div>
+                <div class="leak-status">
+                    <span class="leak-icon">✓</span>
+                    <div>
+                        <strong>No unusual drop detected</strong>
+                        <p>Sample readings show no sudden water-level decrease.</p>
+                    </div>
+                </div>
+                <div class="insight-note">A real leakage detection system needs actual sensor readings over time.</div>
+            </article>
+        </section>
+
+        <section class="content-card recent-alerts">
+            <div class="card-heading">
+                <div>
+                    <h3>Smart Recommendations</h3>
+                    <p>Suggested actions based on the sample farm data</p>
+                </div>
+            </div>
+
+            <div class="recommendation-row">
+                <span class="recommendation-icon">🌅</span>
+                <div>
+                    <strong>Prefer early morning irrigation</strong>
+                    <p>Watering during cooler hours can reduce evaporation.</p>
+                </div>
+            </div>
+            <div class="recommendation-row">
+                <span class="recommendation-icon">🌱</span>
+                <div>
+                    <strong>Prioritise crop requirements</strong>
+                    <p>Give water according to each zone's irrigation needs.</p>
+                </div>
+            </div>
+            <div class="recommendation-row">
+                <span class="recommendation-icon">🔍</span>
+                <div>
+                    <strong>Check for unexpected water loss</strong>
+                    <p>Investigate sudden drops in tank level or unusual consumption.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="page-footer">AquaSense AI · Agricultural Water Management · Software Prototype</footer>
+    </main>
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

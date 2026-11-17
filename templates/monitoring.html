@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaSense AI | Water Monitoring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="app-layout">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🌱</span>
+            <h2>AquaSense <span>AI</span></h2>
+        </div>
+        <p class="menu-label">MAIN MENU</p>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}">▦ Dashboard</a>
+            <a href="{{ url_for('monitoring') }}" class="active">◉ Water Monitoring</a>
+            <a href="{{ url_for('ai_insights') }}">✧ AI Insights</a>
+            <a href="{{ url_for('irrigation') }}">♧ Smart Irrigation</a>
+            <a href="{{ url_for('security_reports') }}">⚑ Security & Reports</a>
+            <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+        </nav>
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('login') }}">↪️ Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">FARM MANAGEMENT</p>
+                <h1>Water Monitoring</h1>
+            </div>
+            <span class="status-pill">● Demo Mode</span>
+        </header>
+
+        <section class="welcome-banner">
+            <div>
+                <p class="eyebrow">WATER RESOURCE CENTRE</p>
+                <h2>Monitor every drop.</h2>
+                <p>Track tank capacity, available water and simulated usage.</p>
+            </div>
+            <div class="banner-icon">💧</div>
+        </section>
+
+        <section class="section-heading">
+            <div>
+                <h2>Tank Overview</h2>
+                <p>Illustrative readings for the software prototype.</p>
+            </div>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <div class="stat-top"><span>Current Water Level</span><span class="stat-icon">💧</span></div>
+                <h2 id="monitorLevel">72%</h2>
+                <p>Current simulated level</p>
+            </article>
+            <article class="stat-card">
+                <div class="stat-top"><span>Available Water</span><span class="stat-icon">🫧</span></div>
+                <h2 id="monitorLitres">720 L</h2>
+                <p>Out of 1,000 litres</p>
+            </article>
+            <article class="stat-card">
+                <div class="stat-top"><span>Today's Usage</span><span class="stat-icon">📉</span></div>
+                <h2>180 L</h2>
+                <p>Sample daily consumption</p>
+            </article>
+            <article class="stat-card">
+                <div class="stat-top"><span>Tank Capacity</span><span class="stat-icon">🛢️</span></div>
+                <h2>1,000 L</h2>
+                <p>Configured tank capacity</p>
+            </article>
+        </section>
+
+        <section class="dashboard-grid">
+            <article class="content-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Water Level Indicator</h3>
+                        <p>Current tank fill percentage</p>
+                    </div>
+                    <span class="status-pill">Normal</span>
+                </div>
+                <div class="water-progress large-progress">
+                    <div class="water-progress-fill" style="width:72%"></div>
+                </div>
+                <div class="progress-labels">
+                    <strong>720 L available</strong>
+                    <span>1,000 L capacity</span>
+                </div>
+                <div class="tank-details">
+                    <span>Available water</span>
+                    <strong>72%</strong>
+                </div>
+                <div class="tank-details">
+                    <span>Remaining capacity</span>
+                    <strong>28%</strong>
+                </div>
+            </article>
+
+            <article class="content-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Monitoring Information</h3>
+                        <p>System configuration</p>
+                    </div>
+                </div>
+                <div class="info-row"><span>Tank ID</span><strong>TANK-001</strong></div>
+                <div class="info-row"><span>Farm location</span><strong>Main Farm</strong></div>
+                <div class="info-row"><span>Monitoring mode</span><strong>Simulation</strong></div>
+                <div class="info-row"><span>System status</span><strong class="good-text">Active</strong></div>
+                <p class="small-note">No physical sensor is connected. Values are simulated for demonstration.</p>
+            </article>
+        </section>
+
+        <section class="content-card recent-alerts">
+            <div class="card-heading">
+                <div>
+                    <h3>Water Level History</h3>
+                    <p>Example readings during the day</p>
+                </div>
+            </div>
+            <div class="history-list">
+                <div class="history-item"><span>08:00 AM</span><div class="history-track"><div style="width:90%"></div></div><strong>90%</strong></div>
+                <div class="history-item"><span>10:00 AM</span><div class="history-track"><div style="width:82%"></div></div><strong>82%</strong></div>
+                <div class="history-item"><span>12:00 PM</span><div class="history-track"><div style="width:76%"></div></div><strong>76%</strong></div>
+                <div class="history-item"><span>02:00 PM</span><div class="history-track"><div style="width:72%"></div></div><strong>72%</strong></div>
+            </div>
+        </section>
+
+        <footer class="page-footer">AquaSense AI · Agricultural Water Management · Software Prototype</footer>
+    </main>
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaSense AI | Water Monitoring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🌱</span>
+            <h2>AquaSense <span>AI</span></h2>
+        </div>
+        <p class="menu-label">MAIN MENU</p>
+        <nav class="sidebar-nav">
+            <a href="{{ url_for('dashboard') }}">▦ Dashboard</a>
+            <a href="{{ url_for('monitoring') }}" class="active">◉ Water Monitoring</a>
+            <a href="{{ url_for('ai_insights') }}">✧ AI Insights</a>
+            <a href="{{ url_for('irrigation') }}">♧ Smart Irrigation</a>
+            <a href="{{ url_for('security_reports') }}">⚑ Security & Reports</a>
+            <a href="{{ url_for('settings') }}">⚙️ Settings</a>
+        </nav>
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('login') }}">↪️ Logout</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">FARM RESOURCE MANAGEMENT</p>
+                <h1>Water Monitoring</h1>
+            </div>
+            <span class="status-pill">● Demo Mode</span>
+        </header>
+
+        <section class="welcome-banner">
+            <div>
+                <p class="eyebrow">LIVE-STYLE MONITORING</p>
+                <h2>Track every drop of water.</h2>
+                <p>Monitor tank capacity and manage agricultural water resources.</p>
+            </div>
+            <div class="banner-icon">💧</div>
+        </section>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-top">Current Water Level <span>💧</span></div>
+                <h2 id="levelPercent">72%</h2>
+                <p>Simulated tank level</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">Available Water <span>💦</span></div>
+                <h2 id="availableLitres">720 L</h2>
+                <p>Water currently available</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">Today's Usage <span>📉</span></div>
+                <h2>180 L</h2>
+                <p>Sample daily consumption</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">Tank Capacity <span>🛢️</span></div>
+                <h2>1,000 L</h2>
+                <p>Configured tank capacity</p>
+            </div>
+        </div>
+
+        <section class="content-card" style="margin-bottom:22px;">
+            <div class="card-heading">
+                <div>
+                    <h3>Demo Water Level Control</h3>
+                    <p>Change the simulated reading to demonstrate different tank conditions.</p>
+                </div>
+                <span class="status-pill">Interactive Demo</span>
+            </div>
+
+            <div style="padding:10px 0;">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+                    <strong>Adjust Water Level</strong>
+                    <strong id="sliderValue" style="font-size:25px;color:#176b45;">72%</strong>
+                </div>
+
+                <input
+                    type="range"
+                    id="waterSlider"
+                    min="0"
+                    max="100"
+                    value="72"
+                    step="1"
+                    style="width:100%;margin:25px 0;accent-color:#238451;"
+                >
+
+                <div class="progress-labels">
+                    <span>0% Empty</span>
+                    <span>50%</span>
+                    <span>100% Full</span>
+                </div>
+
+                <div class="water-progress large-progress">
+                    <div id="waterFill" class="water-progress-fill" style="width:72%;"></div>
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px;">
+                    <div>
+                        <h3 id="waterCondition" style="margin:0;color:#238451;">Normal Water Level</h3>
+                        <p id="waterMessage" class="small-note">Water supply is at a normal level.</p>
+                    </div>
+                    <strong id="conditionLitres">720 / 1,000 L</strong>
+                </div>
+            </div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;">
+                <button type="button" class="secondary-button" data-level="0">Empty 0%</button>
+                <button type="button" class="secondary-button" data-level="5">Critical 5%</button>
+                <button type="button" class="secondary-button" data-level="15">Low 15%</button>
+                <button type="button" class="secondary-button" data-level="72">Normal 72%</button>
+                <button type="button" class="secondary-button" data-level="100">Full 100%</button>
+            </div>
+
+            <p class="small-note" style="margin-top:18px;">
+                Note: These are simulated readings for academic demonstration. No physical water-level sensor is connected.
+            </p>
+        </section>
+
+        <div class="dashboard-grid">
+            <section class="content-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Water Level Indicator</h3>
+                        <p>Current tank fill percentage</p>
+                    </div>
+                    <span id="waterBadge" class="status-pill">Normal</span>
+                </div>
+
+                <div class="water-progress large-progress">
+                    <div id="waterFill2" class="water-progress-fill" style="width:72%;"></div>
+                </div>
+
+                <div class="progress-labels">
+                    <span id="indicatorAvailable">720 L available</span>
+                    <span>1,000 L capacity</span>
+                </div>
+
+                <div class="tank-details">
+                    <span>Available water</span>
+                    <strong id="indicatorPercent">72%</strong>
+                </div>
+                <div class="tank-details">
+                    <span>Remaining capacity</span>
+                    <strong id="remainingPercent">28%</strong>
+                </div>
+            </section>
+
+            <section class="content-card">
+                <div class="card-heading">
+                    <div>
+                        <h3>Monitoring Information</h3>
+                        <p>System configuration</p>
+                    </div>
+                </div>
+
+                <div class="info-row"><span>Tank ID</span><strong>TANK-001</strong></div>
+                <div class="info-row"><span>Farm Location</span><strong>Main Farm</strong></div>
+                <div class="info-row"><span>Monitoring Mode</span><strong>Simulation</strong></div>
+                <div class="info-row"><span>System Status</span><strong class="good-text">Active</strong></div>
+                <p class="small-note">Water readings are simulated for demonstration.</p>
+            </section>
+        </div>
+
+        <section class="content-card" style="margin-top:22px;">
+            <div class="card-heading">
+                <div>
+                    <h3>Water Level History</h3>
+                    <p>Example readings during the day</p>
+                </div>
+            </div>
+
+            <div class="history-item">
+                <span>08:00 AM</span>
+                <div class="history-track"><div style="width:90%;"></div></div>
+                <strong>90%</strong>
+            </div>
+            <div class="history-item">
+                <span>10:00 AM</span>
+                <div class="history-track"><div style="width:82%;"></div></div>
+                <strong>82%</strong>
+            </div>
+            <div class="history-item">
+                <span>12:00 PM</span>
+                <div class="history-track"><div style="width:76%;"></div></div>
+                <strong>76%</strong>
+            </div>
+            <div class="history-item">
+                <span>Current</span>
+                <div class="history-track"><div id="historyFill" style="width:72%;"></div></div>
+                <strong id="historyPercent">72%</strong>
+            </div>
+        </section>
+
+        <footer class="page-footer">
+            AquaSense AI · Agricultural Water Management · Software Prototype
+        </footer>
+
+    </main>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.getElementById("waterSlider");
+
+    const savedLevel = localStorage.getItem("aquaWaterLevel");
+    slider.value = savedLevel === null ? 72 : Number(savedLevel);
+
+    function updateWaterLevel() {
+        const level = Number(slider.value);
+        const litres = level * 10;
+        const remaining = 100 - level;
+
+        let condition = "Normal Water Level";
+        let message = "Water supply is at a normal level.";
+        let badge = "Normal";
+        let color = "#238451";
+
+        if (level === 0) {
+            condition = "Tank Empty";
+            message = "Critical: The tank has no available water.";
+            badge = "Empty";
+            color = "#c0392b";
+        } else if (level <= 5) {
+            condition = "Critical Water Level";
+            message = "Urgent: Water is almost exhausted.";
+            badge = "Critical";
+            color = "#c0392b";
+        } else if (level < 20) {
+            condition = "Low Water Warning";
+            message = "Warning: Refill the tank soon.";
+            badge = "Low";
+            color = "#d98218";
+        } else if (level >= 100) {
+            condition = "Tank Full";
+            message = "Tank is at maximum capacity. Check overflow protection.";
+            badge = "Full";
+            color = "#2676a8";
+        }
+
+        document.getElementById("levelPercent").textContent = level + "%";
+        document.getElementById("availableLitres").textContent = litres + " L";
+        const topLevel = document.getElementById("monitorLevel");
+const topLitres = document.getElementById("monitorLitres");
+
+if (topLevel) topLevel.textContent = level + "%";
+if (topLitres) topLitres.textContent = litres + " L";
+        document.getElementById("sliderValue").textContent = level + "%";
+        document.getElementById("conditionLitres").textContent = litres + " / 1,000 L";
+        document.getElementById("waterCondition").textContent = condition;
+        document.getElementById("waterMessage").textContent = message;
+        document.getElementById("waterBadge").textContent = badge;
+        document.getElementById("indicatorAvailable").textContent = litres + " L available";
+        document.getElementById("indicatorPercent").textContent = level + "%";
+        document.getElementById("remainingPercent").textContent = remaining + "%";
+        document.getElementById("historyPercent").textContent = level + "%";
+
+        document.getElementById("waterFill").style.width = level + "%";
+        document.getElementById("waterFill2").style.width = level + "%";
+        document.getElementById("historyFill").style.width = level + "%";
+
+        document.getElementById("waterCondition").style.color = color;
+        document.getElementById("waterBadge").style.color = color;
+        document.getElementById("waterFill").style.background = color;
+        document.getElementById("waterFill2").style.background = color;
+        document.getElementById("historyFill").style.background = color;
+
+        localStorage.setItem("aquaWaterLevel", level);
+        const currentCategory = level === 0 ? "empty" :
+                        level <= 5 ? "critical" :
+                        level < 20 ? "low" : "normal";
+
+const previousCategory = localStorage.getItem("aquaLastNotifiedCategory");
+
+if (previousCategory !== null && previousCategory !== currentCategory) {
+    if (Notification.permission === "granted") {
+        if (currentCategory === "empty" ||
+            currentCategory === "critical" ||
+            currentCategory === "low") {
+
+            const messages = {
+                empty: "Water tank is empty!",
+                critical: "Critical water level! Immediate attention required.",
+                low: "Water level is low. Please refill the tank."
+            };
+
+            new Notification("AquaSense Water Alert", {
+                body: messages[currentCategory]
+            });
+        }
+    }
+}
+
+localStorage.setItem("aquaLastNotifiedCategory", currentCategory);
+    }
+
+    slider.addEventListener("input", updateWaterLevel);
+
+    document.querySelectorAll("[data-level]").forEach(function (button) {
+        button.addEventListener("click", function () {
+            slider.value = button.dataset.level;
+            updateWaterLevel();
+        });
+    });
+
+    updateWaterLevel();
+});
+</script>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
